@@ -1,0 +1,12 @@
+{
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules",
+		"client"
+  ],
+  "exec": "ts-node --project tsconfig.server.json server/index.ts",
+  "ext": "js ts",
+	"env":{
+		"NODE_ENV": "development"
+	}
+}
