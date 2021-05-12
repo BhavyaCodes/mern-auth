@@ -12,7 +12,7 @@ export interface IUser extends Document {
   // address: string;
 }
 
-const userSchema = new Schema({
+const userSchema: Schema = new Schema({
   // firstName: {
   //   required: true,
   //   type: String,
