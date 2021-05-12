@@ -1,12 +1,21 @@
 import express from "express";
 import mongoose from "mongoose";
+// import bcrypt from "bcrypt";
+import config from "./config";
+
 const app = express();
 
-import config from "./config";
+app.use(express.json());
 
 app.get("/", (req, res, next) => {
   res.json({ hello: "world" });
 });
+
+// app.post("/api/register", async (req, res, next) => {
+//   try {
+//     const hashedPassword = await bcrypt.hash(req.body.password, 8);
+//   } catch (error) {}
+// });
 
 const { port, dbUrl } = config;
 
