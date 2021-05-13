@@ -8,6 +8,7 @@
     "client": "npm run dev --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "build:server" : "tsc --build tsconfig.server.json",
+    "build:client": "npm run build --prefix client",
     "start": "NODE_ENV=production node server/dist/server/index.js"
   },
   "author": "Bhavya Tomar",
