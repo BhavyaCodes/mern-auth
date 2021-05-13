@@ -7,7 +7,10 @@ function MyProfile() {
   const [user, setUser] = useState<null | IUser>(null);
 
   useEffect(() => {
-    axios.get("/api/current-user").then((res) => setUser(res.data));
+    axios
+      .get("/api/current-user")
+      .then((res) => setUser(res.data))
+      .catch((e) => console.log(e));
   }, []);
 
   if (!user) {

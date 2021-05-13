@@ -78,6 +78,9 @@ app.use(
 );
 
 app.get("/api/current-user", (req, res, next) => {
+  if (!req.user) {
+    return res.status(401).json({ error: "not logged in" });
+  }
   res.json({ ...req.user });
 });
 
