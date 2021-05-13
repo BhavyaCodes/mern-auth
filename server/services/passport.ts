@@ -3,7 +3,7 @@ import { compare as bcryptCompare } from "bcrypt";
 import { Strategy as LocalStrategy } from "passport-local";
 
 import User from "../models/User";
-import { IUser } from "../interfaces";
+import { IUser } from "../../interfaces";
 
 passport.serializeUser((user, done) => {
   done(null, user._id);

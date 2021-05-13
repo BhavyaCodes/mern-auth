@@ -10,7 +10,7 @@ import config from "./config";
 import User from "./models/User";
 import "./services/passport";
 
-import { CustomError } from "./interfaces";
+import { CustomError } from "../interfaces";
 
 const app = express();
 
@@ -26,7 +26,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get("/", (req, res, next) => {
+app.get("/api/test", (req, res, next) => {
   res.json({ hello: "world" });
 });
 
@@ -78,6 +78,9 @@ app.use(
 );
 
 app.get("/api/current-user", (req, res, next) => {
+  if (!req.user) {
+    return res.status(401).json({ error: "not logged in" });
+  }
   res.json({ ...req.user });
 });
 
