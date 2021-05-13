@@ -10,7 +10,7 @@ import config from "./config";
 import User from "./models/User";
 import "./services/passport";
 
-import { CustomError } from "./interfaces";
+import { CustomError } from "../interfaces";
 
 const app = express();
 
