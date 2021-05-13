@@ -10,7 +10,8 @@
     "build:server": "tsc --build tsconfig.server.json",
     "build:client": "npm run build --prefix client",
     "start": "NODE_ENV=production node server/dist/server/index.js",
-    "build": "npm-run-all build:*"
+    "build": "npm-run-all build:*",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build"
   },
   "author": "Bhavya Tomar",
   "license": "MIT",
