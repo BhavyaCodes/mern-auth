@@ -1,14 +1,30 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express, { Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
+import passport from "passport";
 import bcrypt from "bcrypt";
+import cookieSession from "cookie-session";
+
 import config from "./config";
 import User from "./models/User";
+import "./services/passport";
 
 import { CustomError } from "./interfaces";
 
 const app = express();
 
 app.use(express.json());
+
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    keys: [config.cookieKey!],
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get("/", (req, res, next) => {
   res.json({ hello: "world" });
@@ -39,6 +55,18 @@ app.post("/api/register", async (req, res, next) => {
   }
 });
 
+app.post(
+  "/api/login",
+  passport.authenticate("local", { failureRedirect: "/api/login-error" }),
+  function (req, res) {
+    res.json({ user: { email: req.user?.email } });
+  }
+);
+
+app.get("/api/login-error", (req, res, next) => {
+  res.status(401).json({ error: "Invalid credentials" });
+});
+
 app.use(
   (error: CustomError, req: Request, res: Response, next: NextFunction) => {
     console.log(error);
@@ -48,6 +76,10 @@ app.use(
     res.status(status).json({ message, data });
   }
 );
+
+app.get("/api/current-user", (req, res, next) => {
+  res.json({ ...req.user });
+});
 
 const { port, dbUrl } = config;
 
