@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import passport from "passport";
 import bcrypt from "bcrypt";
 import cookieSession from "cookie-session";
+import path from "path";
 
 import config from "./config";
 import User from "./models/User";
@@ -89,10 +90,32 @@ app.get("/api/logout", (req, res) => {
   res.json({ action: "logged out" });
 });
 
+console.log(process.env.NODE_ENV);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(
+    express.static(path.join(__dirname, "../", "../", "../", "client", "build"))
+  );
+
+  app.get("*", (req, res) => {
+    res.sendFile(
+      path.resolve(
+        __dirname,
+        "../",
+        "../",
+        "../",
+        "client",
+        "build",
+        "index.html"
+      )
+    );
+  });
+}
+
 const { port, dbUrl } = config;
 
 mongoose
-  .connect(dbUrl, {
+  .connect(dbUrl!, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,

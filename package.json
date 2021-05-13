@@ -6,7 +6,9 @@
   "scripts": {
     "server": "nodemon",
     "client": "npm run dev --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build:server" : "tsc --build tsconfig.server.json",
+    "start": "NODE_ENV=production node server/dist/server/index.js"
   },
   "author": "Bhavya Tomar",
   "license": "MIT",
