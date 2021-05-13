@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
-// import bcrypt from "bcrypt";
+import bcrypt from "bcrypt";
 import config from "./config";
 import User from "./models/User";
 
@@ -26,9 +26,11 @@ app.post("/api/register", async (req, res, next) => {
       throw error;
     }
 
+    const hash = await bcrypt.hash(password, 10);
+
     const newUser = await User.create({
       email,
-      password,
+      password: hash,
     });
 
     res.status(201).json({ user: newUser });

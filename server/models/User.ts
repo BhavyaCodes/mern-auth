@@ -1,5 +1,4 @@
-import mongoose, { Schema, Document, model } from "mongoose";
-import { UserInfo } from "os";
+import { Schema, Document, model } from "mongoose";
 
 export interface IUser extends Document {
   // firstName: string;
@@ -25,6 +24,10 @@ const userSchema: Schema = new Schema({
     required: true,
     type: String,
     unique: true,
+    trim: true,
+    lowercase: true,
+    minLength: 3,
+    maxLength: 100,
   },
   password: {
     required: true,
