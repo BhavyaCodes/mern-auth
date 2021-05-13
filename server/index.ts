@@ -26,7 +26,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get("/", (req, res, next) => {
+app.get("/api/test", (req, res, next) => {
   res.json({ hello: "world" });
 });
 
