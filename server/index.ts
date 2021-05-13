@@ -81,6 +81,11 @@ app.get("/api/current-user", (req, res, next) => {
   res.json({ ...req.user });
 });
 
+app.get("/api/logout", (req, res) => {
+  req.logout();
+  res.json({ action: "logged out" });
+});
+
 const { port, dbUrl } = config;
 
 mongoose
