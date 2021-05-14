@@ -34,14 +34,14 @@ function Signup({ children }: { children: ReactNode }) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Container className={classes.container}>
+      <Container className={classes.container} maxWidth="lg">
         <Grid container>
           <Grid item lg={6} md={12}>
             <Typography variant="h1" className={classes.title}>
               fakebook
             </Typography>
             <Typography className={classes.subtitle}>
-              Fakebook helps you disconnect and share your data so we can sell
+              Fakebook helps you disconnect and collect your data so we can sell
               ads.
             </Typography>
           </Grid>
