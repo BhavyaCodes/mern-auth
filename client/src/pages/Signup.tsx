@@ -1,4 +1,4 @@
-import { Container, Grid, Typography } from "@material-ui/core";
+import { Container, Grid, Typography, Paper } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 function Signup() {
@@ -22,6 +22,12 @@ function Signup() {
       subtitle: {
         fontSize: "2.2rem",
       },
+      card: {
+        backgroundColor: "#fff",
+        height: theme.spacing(20),
+        boxShadow: "0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1)",
+        borderRadius: "8px",
+      },
     })
   );
   const classes = useStyles();
@@ -34,11 +40,12 @@ function Signup() {
               fakebook
             </Typography>
             <Typography className={classes.subtitle}>
-              Facebook helps you connect and share with the people in your life.
+              Fakebook helps you disconnect and share your data so we can sell
+              ads.
             </Typography>
           </Grid>
           <Grid item lg={6} md={12}>
-            right
+            <div className={classes.card}>sdsdf</div>
           </Grid>
         </Grid>
       </Container>
