@@ -9,6 +9,7 @@ import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import LogoutButton from "components/LogoutButton";
 import Footer from "components/Footer";
+import AuthLayout from "components/AuthLayout";
 
 // const theme = {
 //   typography:{
@@ -64,6 +65,11 @@ function App() {
                 </Route>
                 <Route path="/profile" exact>
                   <MyProfile />
+                </Route>
+                <Route path="/test" exact>
+                  <AuthLayout>
+                    <h1>Hello</h1>
+                  </AuthLayout>
                 </Route>
               </Switch>
             </div>
