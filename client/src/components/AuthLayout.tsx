@@ -46,7 +46,7 @@ function Signup({ children }: { children: ReactNode }) {
             </Typography>
           </Grid>
           <Grid item lg={6} md={12}>
-            <div className={classes.card}>{children}</div>
+            {children}
           </Grid>
         </Grid>
       </Container>
