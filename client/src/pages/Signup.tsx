@@ -1,4 +1,4 @@
-import { Container, Grid, Typography, Paper } from "@material-ui/core";
+import { Container, Grid, Typography } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 function Signup() {
@@ -45,7 +45,7 @@ function Signup() {
             </Typography>
           </Grid>
           <Grid item lg={6} md={12}>
-            <div className={classes.card}>sdsdf</div>
+            <div className={classes.card}>Signup Card</div>
           </Grid>
         </Grid>
       </Container>
