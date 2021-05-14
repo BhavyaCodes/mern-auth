@@ -66,14 +66,8 @@ function App() {
                 <Route path="/profile" exact>
                   <MyProfile />
                 </Route>
-                <Route path="/test" exact>
-                  <AuthLayout>
-                    <h1>Hello</h1>
-                  </AuthLayout>
-                </Route>
               </Switch>
             </div>
-            {/* <LogoutButton /> */}
             <Footer />
           </div>
         </CssBaseline>
