@@ -12,6 +12,7 @@ const Signup = () => {
   const [step, setStep] = useState<number>(0);
   const [fName, setFName] = useState<string>("");
   const [lName, setLName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       root: {
@@ -67,7 +68,7 @@ const Signup = () => {
           />
         );
       case 1: {
-        return <Step2 />;
+        return <Step2 setEmail={setEmail} nextStep={() => setStep(2)} />;
       }
       default:
         break;
