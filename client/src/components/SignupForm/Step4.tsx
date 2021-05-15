@@ -1,4 +1,5 @@
-import { useRef, Dispatch, FormEvent, SetStateAction } from "react";
+import { useRef, useState, Dispatch, FormEvent, SetStateAction } from "react";
+import passwordValidator from "password-validator";
 import { Typography } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Button from "../common/Button";
@@ -6,13 +7,15 @@ import Input from "components/common/Input";
 import { Link } from "react-router-dom";
 
 type AppProps = {
-  setEmail: Dispatch<SetStateAction<string>>;
+  setPassword: Dispatch<SetStateAction<string>>;
 
   nextStep: () => void;
 };
 
-export function Step4({ setEmail, nextStep }: AppProps) {
-  const emailRef = useRef<HTMLInputElement>(null);
+export function Step4({ setPassword, nextStep }: AppProps) {
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const reEnterRef = useRef<HTMLInputElement>(null);
+  const [error, setError] = useState<null | string>(null);
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -50,37 +53,76 @@ export function Step4({ setEmail, nextStep }: AppProps) {
           textDecoration: "underline",
         },
       },
+      errorMessage: {
+        marginTop: theme.spacing(-2),
+        color: theme.palette.error.main,
+        marginBottom: theme.spacing(1),
+      },
     })
   );
 
   const classes = useStyles();
+  const schema = new passwordValidator();
+  schema.is().min(6).has().uppercase();
+  const errorMessages = {
+    min: "Enter minimum of 6 characters",
+    uppercase: "Enter atleast 1 uppercase letter",
+  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setEmail(emailRef.current!.value);
-    nextStep();
+    const password = passwordRef.current!.value;
+    const reEnter = reEnterRef.current!.value;
+    console.log(password, reEnter);
+    if (password !== reEnter) {
+      return setError("Passwords don't match");
+    }
+
+    const errorList = schema.validate(password, {
+      list: true,
+    });
+    console.log(errorList);
+    if (errorList.length === 0) {
+      setError(null);
+      return nextStep();
+    }
+    const errorKey = errorList[0] as "min" | "uppercase";
+    setError(errorMessages[errorKey]);
   };
 
   return (
     <div className={classes.root}>
-      <Typography className={classes.title}>
-        Enter your email address
-      </Typography>
+      <Typography className={classes.title}>Create a password</Typography>
       <Typography className={classes.subtitle}>
-        Enter the email address at which you can be contacted. You can hide this
-        from you profile later.
+        Create a strong password with minimum of 6 characters, and atleast 1
+        uppercase character
       </Typography>
       <form onSubmit={handleSubmit}>
         <Input
           className={classes.input}
-          topLabel="Email address"
-          inputRef={emailRef}
-          type="email"
-          id="email-signup"
-          placeholder="example@gmail.com"
-          autocomplete
+          topLabel="Enter Password"
+          inputRef={passwordRef}
+          type="password"
+          id="password-signup"
+          placeholder=""
+          // autocomplete
           width="100%"
         />
+        <Input
+          className={classes.input}
+          topLabel="Re-Enter Password"
+          inputRef={reEnterRef}
+          type="password"
+          id="password-reenter-signup"
+          placeholder=""
+          // autocomplete
+          width="100%"
+        />
+        {error && (
+          <Typography align="left" className={classes.errorMessage}>
+            {error}
+          </Typography>
+        )}
         <Button halfWidth fontSize="17px">
           Next
         </Button>

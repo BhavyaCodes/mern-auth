@@ -14,6 +14,7 @@ const Signup = () => {
   const [lName, setLName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [date, setDate] = useState<Date | [Date, Date] | null>(new Date());
+  const [password, setPassword] = useState<string>("");
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       root: {
@@ -81,7 +82,14 @@ const Signup = () => {
         );
       }
       case 3: {
-        return <h1>Step 4</h1>;
+        return (
+          <Step4
+            setPassword={setPassword}
+            nextStep={() => {
+              console.log("next step");
+            }}
+          />
+        );
       }
       default:
         break;
