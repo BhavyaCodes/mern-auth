@@ -33,9 +33,6 @@ export function Step2({ setEmail, nextStep }: AppProps) {
         marginTop: theme.spacing(3),
         marginBottom: theme.spacing(3),
       },
-      inputContainer: {
-        padding: theme.spacing(1),
-      },
       loginLinkContainer: {
         marginTop: theme.spacing(2),
       },

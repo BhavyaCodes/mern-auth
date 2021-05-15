@@ -2,7 +2,6 @@ import { Dispatch, FormEvent, SetStateAction } from "react";
 import { Typography } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Button from "../common/Button";
-import Input from "components/common/Input";
 import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 
@@ -32,7 +31,6 @@ export function Step3({ date, setDate, nextStep }: AppProps) {
         display: "inline-block",
       },
       datePicker: {
-        // display: "block",
         fontFamily: "inherit",
         fontSize: "1.2rem",
         marginTop: theme.spacing(2),
@@ -40,18 +38,10 @@ export function Step3({ date, setDate, nextStep }: AppProps) {
         textAlign: "center",
         width: "fit-content",
       },
-      input: {
-        marginTop: theme.spacing(3),
-        marginBottom: theme.spacing(3),
-      },
       form: {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-      },
-
-      inputContainer: {
-        padding: theme.spacing(1),
       },
       loginLinkContainer: {
         marginTop: theme.spacing(2),
@@ -74,7 +64,6 @@ export function Step3({ date, setDate, nextStep }: AppProps) {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    // setEmail(emailRef.current!.value);
     nextStep();
   };
 
@@ -87,16 +76,6 @@ export function Step3({ date, setDate, nextStep }: AppProps) {
         Choose your date of birth. You can always make this private later.
       </Typography>
       <form onSubmit={handleSubmit} className={classes.form}>
-        {/* <Input
-          className={classes.input}
-          topLabel="Email address"
-          inputRef={emailRef}
-          type="email"
-          id="email-signup"
-          placeholder="example@gmail.com"
-          autocomplete
-          width="100%"
-        /> */}
         <DatePicker
           selected={date as Date}
           onChange={(date) => setDate(date)}

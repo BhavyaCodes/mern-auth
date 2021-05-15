@@ -36,9 +36,6 @@ export function Step4({ setPassword, nextStep }: AppProps) {
         marginTop: theme.spacing(3),
         marginBottom: theme.spacing(3),
       },
-      inputContainer: {
-        padding: theme.spacing(1),
-      },
       loginLinkContainer: {
         marginTop: theme.spacing(2),
       },
@@ -73,7 +70,6 @@ export function Step4({ setPassword, nextStep }: AppProps) {
     e.preventDefault();
     const password = passwordRef.current!.value;
     const reEnter = reEnterRef.current!.value;
-    console.log(password, reEnter);
     if (password !== reEnter) {
       return setError("Passwords don't match");
     }
@@ -81,7 +77,6 @@ export function Step4({ setPassword, nextStep }: AppProps) {
     const errorList = schema.validate(password, {
       list: true,
     });
-    console.log(errorList);
     if (errorList.length === 0) {
       setError(null);
       return nextStep();

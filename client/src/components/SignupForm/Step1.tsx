@@ -21,10 +21,13 @@ export function Step1({ setFName, setLName, nextStep }: AppProps) {
         fontWeight: 700,
         fontSize: "2rem",
       },
-      grid: { marginTop: theme.spacing(1), marginBottom: theme.spacing(2) },
-      subtitle: { fontSize: "1rem", fontWeight: 400 },
-      inputContainer: {
-        padding: theme.spacing(1),
+      grid: {
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(2),
+      },
+      subtitle: {
+        fontSize: "1rem",
+        fontWeight: 400,
       },
       loginLinkContainer: {
         marginTop: theme.spacing(2),
@@ -47,8 +50,6 @@ export function Step1({ setFName, setLName, nextStep }: AppProps) {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(fNameRef?.current?.value);
-    console.log(lNameRef?.current?.value);
     setFName(fNameRef.current!.value!);
     setLName(lNameRef.current!.value);
     nextStep();
