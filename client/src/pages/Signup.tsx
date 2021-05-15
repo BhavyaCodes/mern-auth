@@ -2,10 +2,6 @@ import { useState } from "react";
 import AuthLayout from "components/AuthLayout";
 import Card from "components/Card";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Input from "components/common/Input";
-import Button from "components/common/Button";
-import Line from "components/common/Line";
-import { Typography } from "@material-ui/core";
 import { Step1, Step2, Step3, Step4 } from "components/SignupForm";
 import axios from "axios";
 
