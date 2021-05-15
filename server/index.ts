@@ -63,7 +63,8 @@ app.post(
   "/api/login",
   passport.authenticate("local", { failureRedirect: "/api/login-error" }),
   function (req, res) {
-    res.json({ user: { email: req.user?.email } });
+    // res.json({ user: { email: req.user?.email } });
+    res.json({ ...req.user, password: undefined });
   }
 );
 

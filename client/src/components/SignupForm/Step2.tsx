@@ -78,7 +78,7 @@ export function Step2({ setEmail, nextStep }: AppProps) {
           autocomplete
           width="100%"
         />
-        <Button halfWidth fontSize="17px">
+        <Button type="submit" halfWidth fontSize="17px">
           Next
         </Button>
       </form>

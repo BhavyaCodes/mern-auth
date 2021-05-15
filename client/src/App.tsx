@@ -7,9 +7,8 @@ import Signup from "./pages/Signup";
 import { CssBaseline } from "@material-ui/core";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import LogoutButton from "components/LogoutButton";
 import Footer from "components/Footer";
-import AuthLayout from "components/AuthLayout";
+import { UserProvider } from "contexts/User";
 
 // const theme = {
 //   typography:{
@@ -56,7 +55,8 @@ function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <CssBaseline>
+        <CssBaseline />
+        <UserProvider>
           <div className={classes.root}>
             <div className={classes.content}>
               <Switch>
@@ -76,7 +76,7 @@ function App() {
             </div>
             <Footer />
           </div>
-        </CssBaseline>
+        </UserProvider>
       </ThemeProvider>
     </BrowserRouter>
   );
