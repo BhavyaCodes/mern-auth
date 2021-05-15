@@ -32,7 +32,7 @@ app.get("/api/test", (req, res, next) => {
 });
 
 app.post("/api/register", async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password, firstName, lastName, dob } = req.body;
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -48,9 +48,12 @@ app.post("/api/register", async (req, res, next) => {
     const newUser = await User.create({
       email,
       password: hash,
+      firstName,
+      lastName,
+      dob,
     });
 
-    res.status(201).json({ user: newUser });
+    res.status(201).json({ name: newUser.firstName });
   } catch (error) {
     next(error);
   }

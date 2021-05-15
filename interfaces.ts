@@ -6,10 +6,11 @@ export interface CustomError extends Error {
 }
 
 export interface IUser extends Document {
-  // firstName: string;
-  // lastName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
+  dob: Date;
   // imageUrl: string;
   // age: number;
   // phoneNumber: string;

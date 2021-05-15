@@ -8,11 +8,21 @@ import { Link } from "react-router-dom";
 
 type AppProps = {
   setPassword: Dispatch<SetStateAction<string>>;
-
-  nextStep: () => void;
+  loading: boolean;
+  success: boolean;
+  onSubmit: () => void;
+  firstName: string;
+  signUpError: string | null;
 };
 
-export function Step4({ setPassword, nextStep }: AppProps) {
+export function Step4({
+  setPassword,
+  loading,
+  onSubmit,
+  success,
+  firstName,
+  signUpError,
+}: AppProps) {
   const passwordRef = useRef<HTMLInputElement>(null);
   const reEnterRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<null | string>(null);
@@ -55,6 +65,27 @@ export function Step4({ setPassword, nextStep }: AppProps) {
         color: theme.palette.error.main,
         marginBottom: theme.spacing(1),
       },
+      signUpErrorMessage: {
+        color: theme.palette.error.dark,
+        fontWeight: 700,
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(1),
+      },
+      welcome: {
+        fontSize: "4rem",
+      },
+      firstName: {
+        textTransform: "capitalize",
+      },
+      fakebook: {
+        color: theme.palette.primary.main,
+        fontWeight: 700,
+      },
+      btn: {
+        display: "block",
+        marginTop: theme.spacing(4),
+        marginBottom: theme.spacing(2),
+      },
     })
   );
 
@@ -79,7 +110,8 @@ export function Step4({ setPassword, nextStep }: AppProps) {
     });
     if (errorList.length === 0) {
       setError(null);
-      return nextStep();
+      setPassword(password);
+      onSubmit();
     }
     const errorKey = errorList[0] as "min" | "uppercase";
     setError(errorMessages[errorKey]);
@@ -87,46 +119,70 @@ export function Step4({ setPassword, nextStep }: AppProps) {
 
   return (
     <div className={classes.root}>
-      <Typography className={classes.title}>Create a password</Typography>
-      <Typography className={classes.subtitle}>
-        Create a strong password with minimum of 6 characters, and atleast 1
-        uppercase character
-      </Typography>
-      <form onSubmit={handleSubmit}>
-        <Input
-          className={classes.input}
-          topLabel="Enter Password"
-          inputRef={passwordRef}
-          type="password"
-          id="password-signup"
-          placeholder=""
-          // autocomplete
-          width="100%"
-        />
-        <Input
-          className={classes.input}
-          topLabel="Re-Enter Password"
-          inputRef={reEnterRef}
-          type="password"
-          id="password-reenter-signup"
-          placeholder=""
-          // autocomplete
-          width="100%"
-        />
-        {error && (
-          <Typography align="left" className={classes.errorMessage}>
-            {error}
+      {success ? (
+        <>
+          <Typography className={classes.welcome}>
+            Welcome, <span className={classes.firstName}>{firstName}!</span>
           </Typography>
-        )}
-        <Button halfWidth fontSize="17px">
-          Next
-        </Button>
-      </form>
-      <Typography align="left" className={classes.loginLinkContainer}>
-        <Link to="/login" className={classes.loginLink}>
-          Already have an account?
-        </Link>
-      </Typography>
+          <Typography variant="h4">
+            Thank you for joining{" "}
+            <span className={classes.fakebook}>fakebook</span>
+          </Typography>
+          <Link to="/login" className={classes.btn}>
+            <Button fontSize="17px" color="secondary">
+              Login now
+            </Button>
+          </Link>
+        </>
+      ) : (
+        <>
+          <Typography className={classes.title}>Create a password</Typography>
+          <Typography className={classes.subtitle}>
+            Create a strong password with minimum of 6 characters, and atleast 1
+            uppercase character
+          </Typography>
+          <form onSubmit={handleSubmit}>
+            <Input
+              className={classes.input}
+              topLabel="Enter Password"
+              inputRef={passwordRef}
+              type="password"
+              id="password-signup"
+              placeholder=""
+              // autocomplete
+              width="100%"
+            />
+            <Input
+              className={classes.input}
+              topLabel="Re-Enter Password"
+              inputRef={reEnterRef}
+              type="password"
+              id="password-reenter-signup"
+              placeholder=""
+              // autocomplete
+              width="100%"
+            />
+            {error && (
+              <Typography align="left" className={classes.errorMessage}>
+                {error}
+              </Typography>
+            )}
+            <Button halfWidth fontSize="17px" disabled={loading}>
+              Next
+            </Button>
+            {signUpError && (
+              <Typography align="left" className={classes.signUpErrorMessage}>
+                {signUpError}
+              </Typography>
+            )}
+          </form>
+          <Typography align="left" className={classes.loginLinkContainer}>
+            <Link to="/login" className={classes.loginLink}>
+              Already have an account?
+            </Link>
+          </Typography>
+        </>
+      )}
     </div>
   );
 }
