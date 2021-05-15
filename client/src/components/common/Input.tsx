@@ -1,3 +1,4 @@
+import { RefObject } from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 type AppProps = {
@@ -9,6 +10,8 @@ type AppProps = {
   className?: string;
   topLabel?: string;
   id: string;
+  required?: boolean;
+  inputRef?: RefObject<HTMLInputElement>; //change later to not optional
 };
 
 function Input({
@@ -20,6 +23,8 @@ function Input({
   width,
   className,
   topLabel,
+  required,
+  inputRef,
 }: AppProps) {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -70,11 +75,13 @@ function Input({
         </label>
       )}
       <input
+        ref={inputRef}
         id={id}
         type={type}
         placeholder={placeholder}
         className={classes.input}
         autoComplete={autocomplete ? "on" : "off"}
+        required={required && true}
       />
     </div>
   );

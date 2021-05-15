@@ -5,6 +5,7 @@ import Input from "components/common/Input";
 import Button from "components/common/Button";
 import Line from "components/common/Line";
 import { Typography } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const useStyles = makeStyles((theme: Theme) =>
@@ -77,9 +78,11 @@ const Login = () => {
             Forgotten password?
           </a>
           <Line className={classes.line} />
-          <Button fontSize="17px" color="secondary">
-            Create New Account
-          </Button>
+          <Link to="/signup">
+            <Button fontSize="17px" color="secondary">
+              Create New Account
+            </Button>
+          </Link>
         </Card>
 
         <Typography className={classes.createAPage}>
