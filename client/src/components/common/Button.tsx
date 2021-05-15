@@ -4,11 +4,12 @@ import { ReactNode } from "react";
 type AppProps = {
   children: ReactNode;
   fullWidth?: boolean;
+  halfWidth?: boolean;
   color?: "primary" | "secondary";
   fontSize: string;
 };
 
-function Input({ fullWidth, children, color, fontSize }: AppProps) {
+function Input({ fullWidth, halfWidth, children, color, fontSize }: AppProps) {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       button: {
@@ -18,7 +19,7 @@ function Input({ fullWidth, children, color, fontSize }: AppProps) {
           color === "secondary"
             ? theme.palette.secondary.light
             : theme.palette.primary.light,
-        width: fullWidth ? "100%" : "inherit",
+        width: fullWidth ? "100%" : halfWidth ? "50%" : "inherit",
         fontFamily: "inherit",
         fontWeight: 700,
         border: "none",

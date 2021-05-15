@@ -52,13 +52,23 @@ const Login = () => {
     })
   );
   const classes = useStyles();
-  console.log(typeof classes.line);
+
   return (
     <AuthLayout>
       <div className={classes.root}>
         <Card>
-          <Input placeholder="Email address" type="email" gutterBottom={2} />
-          <Input placeholder="Password" type="password" gutterBottom={2} />
+          <Input
+            placeholder="Email address"
+            type="email"
+            gutterBottom={2}
+            id="login-email"
+          />
+          <Input
+            placeholder="Password"
+            type="password"
+            gutterBottom={2}
+            id="login-password"
+          />
           <Button fullWidth color="primary" fontSize="20px">
             Log in
           </Button>

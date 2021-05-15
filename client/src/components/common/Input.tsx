@@ -5,9 +5,22 @@ type AppProps = {
   placeholder: string;
   autocomplete?: boolean;
   gutterBottom?: number;
+  width?: string;
+  className?: string;
+  topLabel?: string;
+  id: string;
 };
 
-function Input({ type, placeholder, autocomplete, gutterBottom }: AppProps) {
+function Input({
+  id,
+  type,
+  placeholder,
+  autocomplete,
+  gutterBottom,
+  width,
+  className,
+  topLabel,
+}: AppProps) {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       // root: {
@@ -15,6 +28,9 @@ function Input({ type, placeholder, autocomplete, gutterBottom }: AppProps) {
       //   justifyContent: "center",
       //   alignItems: "center",
       // },
+      root: {
+        textAlign: "left",
+      },
       input: {
         fontFamily: "inherit",
         fontSize: "1.3rem",
@@ -23,7 +39,7 @@ function Input({ type, placeholder, autocomplete, gutterBottom }: AppProps) {
         borderRadius: "6px",
         border: "1px solid #dddfe2",
         color: "inherit",
-        width: theme.spacing(47),
+        width: width || theme.spacing(47),
         marginBottom: theme.spacing(gutterBottom || 0),
         "&::placeholder": {
           color: "#80838A",
@@ -37,12 +53,24 @@ function Input({ type, placeholder, autocomplete, gutterBottom }: AppProps) {
           caretColor: theme.palette.primary.light,
         },
       },
+      topLabel: {
+        display: "inline-block",
+        marginLeft: theme.spacing(0.2),
+        marginBottom: theme.spacing(0.3),
+        opacity: 0.7,
+      },
     })
   );
   const classes = useStyles();
   return (
-    <div>
+    <div className={`${className || ""} ${classes.root}`}>
+      {topLabel && (
+        <label className={classes.topLabel} htmlFor={id}>
+          {topLabel}
+        </label>
+      )}
       <input
+        id={id}
         type={type}
         placeholder={placeholder}
         className={classes.input}
