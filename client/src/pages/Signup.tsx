@@ -7,6 +7,7 @@ import Button from "components/common/Button";
 import Line from "components/common/Line";
 import { Typography } from "@material-ui/core";
 import { Step1, Step2, Step3, Step4 } from "components/SignupForm";
+import axios from "axios";
 
 const Signup = () => {
   const [step, setStep] = useState<number>(0);
@@ -15,6 +16,9 @@ const Signup = () => {
   const [email, setEmail] = useState<string>("");
   const [date, setDate] = useState<Date | [Date, Date] | null>(new Date());
   const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [signUpError, setSignUpError] = useState<null | string>(null);
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       root: {
@@ -59,6 +63,25 @@ const Signup = () => {
       },
     })
   );
+
+  const handleSignup = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.post("/api/register", {
+        email,
+        password,
+        firstName: fName,
+        lastName: lName,
+        dob: date,
+      });
+      setSuccess(true);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+      setSignUpError(error.response.data.message);
+    }
+  };
+
   const renderStep = () => {
     switch (step) {
       case 0:
@@ -85,9 +108,11 @@ const Signup = () => {
         return (
           <Step4
             setPassword={setPassword}
-            nextStep={() => {
-              console.log("next step");
-            }}
+            loading={loading}
+            onSubmit={handleSignup}
+            success={success}
+            firstName={fName}
+            signUpError={signUpError}
           />
         );
       }
@@ -99,10 +124,7 @@ const Signup = () => {
   return (
     <AuthLayout>
       <div className={classes.root}>
-        <Card>
-          {renderStep()}
-          {/* <Step1 setFName={setFName} setLName={setLName} /> */}
-        </Card>
+        <Card>{renderStep()}</Card>
       </div>
     </AuthLayout>
   );

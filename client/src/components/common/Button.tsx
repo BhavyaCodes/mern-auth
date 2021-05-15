@@ -7,9 +7,17 @@ type AppProps = {
   halfWidth?: boolean;
   color?: "primary" | "secondary";
   fontSize: string;
+  disabled?: boolean;
 };
 
-function Input({ fullWidth, halfWidth, children, color, fontSize }: AppProps) {
+function Input({
+  fullWidth,
+  halfWidth,
+  children,
+  color,
+  fontSize,
+  disabled,
+}: AppProps) {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       button: {
@@ -39,11 +47,22 @@ function Input({ fullWidth, halfWidth, children, color, fontSize }: AppProps) {
               ? theme.palette.secondary.dark
               : theme.palette.primary.dark,
         },
+        "&:disabled": {
+          cursor: "wait",
+          backgroundColor:
+            color === "secondary"
+              ? theme.palette.secondary.light
+              : theme.palette.primary.light,
+        },
       },
     })
   );
   const classes = useStyles();
-  return <button className={classes.button}>{children}</button>;
+  return (
+    <button disabled={disabled} className={classes.button}>
+      {children}
+    </button>
+  );
 }
 
 export default Input;
