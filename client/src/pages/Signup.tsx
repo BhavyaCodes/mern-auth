@@ -6,13 +6,14 @@ import Input from "components/common/Input";
 import Button from "components/common/Button";
 import Line from "components/common/Line";
 import { Typography } from "@material-ui/core";
-import { Step1, Step2 } from "components/SignupForm";
+import { Step1, Step2, Step3, Step4 } from "components/SignupForm";
 
 const Signup = () => {
   const [step, setStep] = useState<number>(0);
   const [fName, setFName] = useState<string>("");
   const [lName, setLName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [date, setDate] = useState<Date | [Date, Date] | null>(new Date());
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       root: {
@@ -69,6 +70,18 @@ const Signup = () => {
         );
       case 1: {
         return <Step2 setEmail={setEmail} nextStep={() => setStep(2)} />;
+      }
+      case 2: {
+        return (
+          <Step3
+            date={date as Date}
+            setDate={setDate}
+            nextStep={() => setStep(3)}
+          />
+        );
+      }
+      case 3: {
+        return <h1>Step 4</h1>;
       }
       default:
         break;
