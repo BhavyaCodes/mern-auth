@@ -4,6 +4,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Input from "components/common/Input";
 import Button from "components/common/Button";
 import Line from "components/common/Line";
+import { Typography } from "@material-ui/core";
 
 const Login = () => {
   const useStyles = makeStyles((theme: Theme) =>
@@ -14,6 +15,7 @@ const Login = () => {
         justifyContent: "center",
         alignItems: "center",
         textAlign: "center",
+        flexDirection: "column",
       },
       card: {
         width: "100%",
@@ -34,6 +36,19 @@ const Login = () => {
         marginTop: theme.spacing(0),
         marginBottom: theme.spacing(2),
       },
+      createAPage: {
+        marginTop: theme.spacing(2),
+      },
+      link: {
+        "&:link,&:visited": {
+          fontWeight: 700,
+          color: "inherit",
+          textDecoration: "none",
+        },
+        "&:hover": {
+          textDecoration: "underline",
+        },
+      },
     })
   );
   const classes = useStyles();
@@ -43,7 +58,7 @@ const Login = () => {
       <div className={classes.root}>
         <Card>
           <Input placeholder="Email address" type="email" gutterBottom={2} />
-          <Input placeholder="password" type="password" gutterBottom={2} />
+          <Input placeholder="Password" type="password" gutterBottom={2} />
           <Button fullWidth color="primary" fontSize="20px">
             Log in
           </Button>
@@ -56,6 +71,14 @@ const Login = () => {
             Create New Account
           </Button>
         </Card>
+
+        <Typography className={classes.createAPage}>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          <a href="#" className={classes.link}>
+            Create a Page
+          </a>{" "}
+          for a celebrity, band or business.
+        </Typography>
       </div>
     </AuthLayout>
   );

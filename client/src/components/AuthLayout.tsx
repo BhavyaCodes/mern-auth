@@ -14,6 +14,11 @@ function Signup({ children }: { children: ReactNode }) {
         alignItems: "center",
         // height: "100%",
       },
+      leftSide: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      },
       title: {
         fontWeight: theme.typography.fontWeightBold,
         color: theme.palette.primary.main,
@@ -36,7 +41,7 @@ function Signup({ children }: { children: ReactNode }) {
     <div className={classes.root}>
       <Container className={classes.container} maxWidth="lg">
         <Grid container>
-          <Grid item lg={6} md={12}>
+          <Grid item lg={6} md={12} className={classes.leftSide}>
             <Typography variant="h1" className={classes.title}>
               fakebook
             </Typography>

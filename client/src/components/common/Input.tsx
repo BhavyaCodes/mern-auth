@@ -32,6 +32,9 @@ function Input({ type, placeholder, autocomplete, gutterBottom }: AppProps) {
           "&::placeholder": {
             color: "#BEC3C9",
           },
+          boxShadow: "0 0 0 2px #e7f3ff",
+          borderColor: theme.palette.primary.light,
+          caretColor: theme.palette.primary.light,
         },
       },
     })
