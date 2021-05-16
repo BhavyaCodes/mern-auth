@@ -14,7 +14,7 @@ export const Login = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [user, setUser, loading] = useUser();
+  const [user, setUser] = useUser();
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
