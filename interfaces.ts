@@ -22,6 +22,9 @@ declare global {
     interface User {
       email: string;
       _id: string;
+      firstName: string;
+      lastName: string;
+      dob: Date;
     }
   }
 }

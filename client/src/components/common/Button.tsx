@@ -8,6 +8,7 @@ type AppProps = {
   color?: "primary" | "secondary";
   fontSize: string;
   disabled?: boolean;
+  type?: "button" | "reset" | "submit";
 };
 
 function Input({
@@ -17,6 +18,7 @@ function Input({
   color,
   fontSize,
   disabled,
+  type,
 }: AppProps) {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -59,7 +61,11 @@ function Input({
   );
   const classes = useStyles();
   return (
-    <button disabled={disabled} className={classes.button}>
+    <button
+      type={type || "button"}
+      disabled={disabled}
+      className={classes.button}
+    >
       {children}
     </button>
   );

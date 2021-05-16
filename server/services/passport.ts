@@ -11,9 +11,16 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((_id, done) => {
   User.findById(_id)
+    .lean()
     .then((user) => {
       if (user) {
-        done(null, { _id: user._id, email: user.email });
+        done(null, {
+          _id: user._id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          dob: user.dob,
+        });
       }
     })
     .catch((e) => {
@@ -34,12 +41,11 @@ passport.use(
       if (!user) {
         return done(null, false);
       }
-
       const matchPassword = await bcryptCompare(password, user.password);
       if (!matchPassword) {
         return done(null, false);
       }
-      return done(null, user);
+      return done(null, user.toObject());
     });
   })
 );

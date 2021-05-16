@@ -81,7 +81,7 @@ export function Step3({ date, setDate, nextStep }: AppProps) {
           onChange={(date) => setDate(date)}
           className={classes.datePicker}
         />
-        <Button halfWidth fontSize="17px">
+        <Button type="submit" halfWidth fontSize="17px">
           Next
         </Button>
       </form>

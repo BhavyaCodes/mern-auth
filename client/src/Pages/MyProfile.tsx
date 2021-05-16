@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { IUser } from "../../../interfaces";
 
-function MyProfile() {
+export function MyProfile() {
   const [user, setUser] = useState<null | IUser>(null);
 
   useEffect(() => {
@@ -22,5 +22,3 @@ function MyProfile() {
     </div>
   );
 }
-
-export default MyProfile;

@@ -86,7 +86,7 @@ export function Step1({ setFName, setLName, nextStep }: AppProps) {
             />
           </Grid>
         </Grid>
-        <Button halfWidth fontSize="17px">
+        <Button type="submit" halfWidth fontSize="17px">
           Next
         </Button>
       </form>
