@@ -12,6 +12,7 @@ type AppProps = {
   id: string;
   required?: boolean;
   inputRef?: RefObject<HTMLInputElement>; //change later to not optional
+  value?: string | undefined;
 };
 
 function Input({
@@ -25,6 +26,7 @@ function Input({
   topLabel,
   required,
   inputRef,
+  value,
 }: AppProps) {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -59,7 +61,7 @@ function Input({
         },
       },
       topLabel: {
-        display: "inline-block",
+        display: "block",
         marginLeft: theme.spacing(0.2),
         marginBottom: theme.spacing(0.3),
         opacity: 0.7,
@@ -82,6 +84,7 @@ function Input({
         className={classes.input}
         autoComplete={autocomplete ? "on" : "off"}
         required={required && true}
+        value={null || value}
       />
     </div>
   );
