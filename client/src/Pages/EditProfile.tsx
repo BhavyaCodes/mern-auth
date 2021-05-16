@@ -1,7 +1,6 @@
-import { useState, ChangeEvent } from "react";
+import { useState, useRef, ChangeEvent, FormEvent } from "react";
+import axios from "axios";
 import { useUser } from "contexts/User";
-import EmailIcon from "@material-ui/icons/Email";
-import EventIcon from "@material-ui/icons/Event";
 import Input from "components/common/Input";
 import Button from "components/common/Button";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
@@ -72,10 +71,11 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export function EditProfile() {
-  const [fileInputState, setFileInputState] = useState("");
+  // const [fileInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] =
     useState<string | ArrayBuffer | null>(null);
-  const [selectedFile, setSelectedFile] = useState("");
+  // const [selectedFile, setSelectedFile] = useState("");
+  const fileRef = useRef<HTMLInputElement>(null);
   const [user] = useUser();
   const [firstName, setFirstName] = useState<string>(user!.firstName);
   const [lastName, setLastName] = useState<string>(user!.lastName);
@@ -86,14 +86,42 @@ export function EditProfile() {
 
   const classes = useStyles();
 
-  const handleFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file: File | undefined = e?.target?.files?.[0];
-    if (file) {
-      previewFile(file);
+  const fileChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const file: File | null = e.target.files![0];
+    if (!file) {
+      setPreviewSource(null);
+      return;
+    }
+    previewFile(file);
+  };
+
+  const handleEditSave = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      const fd = new FormData();
+      if (fileRef.current?.files![0]) {
+        fd.append("image", fileRef.current?.files[0]);
+      }
+      fd.append("firstName", firstName);
+      fd.append("lastName", lastName);
+      fd.append("email", email);
+      fd.append("dob", dob?.toString()!);
+
+      await axios.post("/api/edit-profile", fd, {
+        onUploadProgress: (progressEvent) => {
+          console.log(
+            `Upload Progress ${Math.round(
+              (progressEvent.loaded / progressEvent.total) * 100
+            )}%`
+          );
+        },
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const previewFile = (file: File) => {
+  const previewFile = (file: Blob) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
@@ -117,8 +145,10 @@ export function EditProfile() {
             <input
               type="file"
               name="image"
-              onChange={handleFileInputChange}
-              value={fileInputState}
+              accept=".jpg,.jpeg,.png,.gif"
+              multiple={false}
+              ref={fileRef}
+              onChange={fileChangeHandler}
               className={classes.imageInput}
             />
             <Input
@@ -169,9 +199,11 @@ export function EditProfile() {
             </Button>
           </Grid>
           <Grid item xs={6}>
-            <Button fullWidth fontSize="2rem" color="secondary">
-              Save
-            </Button>
+            <form onSubmit={handleEditSave}>
+              <Button fullWidth fontSize="2rem" color="secondary" type="submit">
+                Save
+              </Button>
+            </form>
           </Grid>
         </Grid>
       </Container>
