@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, MouseEvent, KeyboardEvent } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 import AppBar from "@material-ui/core/AppBar";
@@ -46,6 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function Navbar() {
+  const history = useHistory();
   const [open, setOpen] = useState<boolean>(false);
   const anchorRef = useRef<HTMLDivElement>(null);
 
@@ -136,8 +138,22 @@ export default function Navbar() {
                       id="menu-list-grow"
                       onKeyDown={handleListKeyDown}
                     >
-                      <MenuItem onClick={handleClose}>Profile</MenuItem>
-                      {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
+                      <MenuItem
+                        onClick={(e) => {
+                          handleClose(e);
+                          history.push("/");
+                        }}
+                      >
+                        Profile
+                      </MenuItem>
+                      <MenuItem
+                        onClick={(e) => {
+                          handleClose(e);
+                          history.push("/edit-profile");
+                        }}
+                      >
+                        Edit Profile
+                      </MenuItem>
                       <MenuItem onClick={handleLogoutButton}>Logout</MenuItem>
                     </MenuList>
                   </ClickAwayListener>
