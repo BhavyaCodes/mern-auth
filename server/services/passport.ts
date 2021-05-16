@@ -14,7 +14,13 @@ passport.deserializeUser((_id, done) => {
     .lean()
     .then((user) => {
       if (user) {
-        done(null, { _id: user._id, email: user.email });
+        done(null, {
+          _id: user._id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          dob: user.dob,
+        });
       }
     })
     .catch((e) => {

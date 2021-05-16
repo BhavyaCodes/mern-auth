@@ -5,7 +5,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Step1, Step2, Step3, Step4 } from "components/SignupForm";
 import axios from "axios";
 
-const Signup = () => {
+export const Signup = () => {
   const [step, setStep] = useState<number>(0);
   const [fName, setFName] = useState<string>("");
   const [lName, setLName] = useState<string>("");
@@ -125,5 +125,3 @@ const Signup = () => {
     </AuthLayout>
   );
 };
-
-export default Signup;

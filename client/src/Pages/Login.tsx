@@ -1,4 +1,4 @@
-import { useEffect, useRef, FormEvent } from "react";
+import { useRef, useState, useEffect, FormEvent } from "react";
 import axios from "axios";
 import AuthLayout from "components/AuthLayout";
 import Card from "components/Card";
@@ -10,10 +10,12 @@ import { Typography } from "@material-ui/core";
 import { Link, Redirect } from "react-router-dom";
 import { useUser } from "contexts/User";
 
-const Login = () => {
+export const Login = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
-  const [user, setUser] = useUser();
+  const [submitted, setSubmitted] = useState<boolean>(false);
+  const [user, setUser, loading] = useUser();
+
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       root: {
@@ -69,16 +71,26 @@ const Login = () => {
         email,
         password,
       })
-      .then((res) => {
-        setUser({
-          firstName: res.data.firstName,
-          lastName: res.data.lastName,
-          email: res.data.email,
-          dob: res.data.dob,
-        });
-      })
-      .catch((e) => console.log(e));
+      .then(() => setSubmitted(true))
+      .catch((e) => {
+        console.log(e);
+        setSubmitted(true);
+      });
   };
+
+  useEffect(() => {
+    if (submitted) {
+      axios
+        .get("/api/current-user")
+        .then((res) => {
+          setUser(res.data);
+        })
+        .catch((e) => {
+          console.log(e);
+          setUser(null);
+        });
+    }
+  }, [setUser, submitted]);
 
   if (user) {
     return <Redirect to="/" />;
@@ -124,11 +136,9 @@ const Login = () => {
           <a href="#" className={classes.link}>
             Create a Page
           </a>{" "}
-          for a celebrity, band or business.
+          for a celebrity, brand or business.
         </Typography>
       </div>
     </AuthLayout>
   );
 };
-
-export default Login;

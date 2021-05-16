@@ -6,11 +6,17 @@ import {
   SetStateAction,
   useMemo,
   ReactNode,
+  useEffect,
 } from "react";
 
 const UserContext =
   createContext<
-    undefined | [User | null, Dispatch<SetStateAction<User | null>>]
+    | undefined
+    | [
+        User | null | undefined,
+        Dispatch<SetStateAction<User | null | undefined>>,
+        boolean
+      ]
   >(undefined);
 
 export interface User {
@@ -29,11 +35,19 @@ export function useUser() {
 }
 
 export function UserProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<null | User>(null);
+  const [user, setUser] = useState<undefined | null | User>(undefined);
+  const [loading, setLoading] = useState<boolean>(true);
+  useEffect(() => {
+    if (user === undefined) {
+      return;
+    }
+    setLoading(false);
+  }, [user]);
 
-  const value: [User | null, Dispatch<SetStateAction<User | null>>] = useMemo(
-    () => [user, setUser],
-    [user]
-  );
+  const value: [
+    User | null | undefined,
+    Dispatch<SetStateAction<User | null | undefined>>,
+    boolean
+  ] = useMemo(() => [user, setUser, loading], [user, loading]);
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
