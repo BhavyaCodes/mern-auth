@@ -5,6 +5,7 @@ import { useUser } from "contexts/User";
 import { Login } from "./Login";
 import { MyProfile } from "./MyProfile";
 import { Signup } from "./Signup";
+import Navbar from "components/common/Navbar";
 
 function Pages() {
   const [user, setUser, loading] = useUser();
@@ -33,7 +34,10 @@ function Pages() {
         {user ? <Redirect to="/" /> : <Signup />}
       </Route>
       <Route path="/" exact>
-        {user ? <h1>index page</h1> : <Redirect to="/login" />}
+        <>
+          <Navbar />
+          {user ? <h1>index page</h1> : <Redirect to="/login" />}
+        </>
       </Route>
       <Route path="/profile" exact>
         {user ? <MyProfile /> : <Redirect to="/login" />}
