@@ -11,10 +11,7 @@ export interface IUser extends Document {
   email: string;
   password: string;
   dob: Date;
-  // imageUrl: string;
-  // age: number;
-  // phoneNumber: string;
-  // address: string;
+  imageUrl: string | null;
 }
 
 declare global {
@@ -25,6 +22,7 @@ declare global {
       firstName: string;
       lastName: string;
       dob: Date;
+      imageUrl: string | null;
     }
   }
 }

@@ -24,6 +24,7 @@ export interface User {
   lastName: string;
   email: string;
   dob: Date;
+  imageUrl: string;
 }
 
 export function useUser() {
