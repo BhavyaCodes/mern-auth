@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import { useUser } from "contexts/User";
 import EmailIcon from "@material-ui/icons/Email";
 import EventIcon from "@material-ui/icons/Event";
@@ -67,10 +67,15 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: "center",
       width: "fit-content",
     },
+    imageInput: {},
   })
 );
 
 export function EditProfile() {
+  const [fileInputState, setFileInputState] = useState("");
+  const [previewSource, setPreviewSource] =
+    useState<string | ArrayBuffer | null>(null);
+  const [selectedFile, setSelectedFile] = useState("");
   const [user] = useUser();
   const [firstName, setFirstName] = useState<string>(user!.firstName);
   const [lastName, setLastName] = useState<string>(user!.lastName);
@@ -81,6 +86,21 @@ export function EditProfile() {
 
   const classes = useStyles();
 
+  const handleFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file: File | undefined = e?.target?.files?.[0];
+    if (file) {
+      previewFile(file);
+    }
+  };
+
+  const previewFile = (file: File) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    };
+  };
+
   return (
     <div className={classes.root}>
       <Toolbar />
@@ -89,11 +109,18 @@ export function EditProfile() {
           <Grid item md={6} xs={12} className={classes.gridLeft}>
             <Avatar
               alt={`${user?.firstName} ${user?.lastName}`}
-              src="/static/images/avatar/1.jpg"
+              src={(previewSource as string) || ""}
               className={classes.large}
             >
               {(user?.firstName[0]! + user?.lastName[0]!).toUpperCase()}
             </Avatar>
+            <input
+              type="file"
+              name="image"
+              onChange={handleFileInputChange}
+              value={fileInputState}
+              className={classes.imageInput}
+            />
             <Input
               id="edit-first-name"
               value={firstName}
