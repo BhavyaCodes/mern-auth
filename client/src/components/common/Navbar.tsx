@@ -1,10 +1,13 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, MouseEvent, KeyboardEvent } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
+// import Button from "@material-ui/core/Button";
+// import IconButton from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar";
 import { deepOrange } from "@material-ui/core/colors";
 
@@ -44,6 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function Navbar() {
+  const history = useHistory();
   const [open, setOpen] = useState<boolean>(false);
   const anchorRef = useRef<HTMLDivElement>(null);
 
@@ -51,7 +55,7 @@ export default function Navbar() {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (event: React.MouseEvent<EventTarget>) => {
+  const handleClose = (event: MouseEvent<EventTarget>) => {
     if (
       anchorRef.current &&
       anchorRef.current.contains(event.target as HTMLElement)
@@ -62,12 +66,24 @@ export default function Navbar() {
     setOpen(false);
   };
 
-  function handleListKeyDown(event: React.KeyboardEvent) {
+  function handleListKeyDown(event: KeyboardEvent) {
     if (event.key === "Tab") {
       event.preventDefault();
       setOpen(false);
     }
   }
+
+  const handleLogoutButton = (event: React.MouseEvent<EventTarget>) => {
+    handleClose(event);
+    axios
+      .get("/api/logout")
+      .then(() => {
+        console.log("logged out");
+        setUser(null);
+        // history.push("/login");
+      })
+      .catch((e) => console.log(e));
+  };
 
   const prevOpen = useRef(open);
   useEffect(() => {
@@ -79,7 +95,7 @@ export default function Navbar() {
   }, [open]);
 
   const classes = useStyles();
-  const [user] = useUser();
+  const [user, setUser] = useUser();
   return (
     <div className={classes.root}>
       <AppBar position="absolute">
@@ -124,7 +140,7 @@ export default function Navbar() {
                     >
                       <MenuItem onClick={handleClose}>Profile</MenuItem>
                       {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
-                      <MenuItem onClick={handleClose}>Logout</MenuItem>
+                      <MenuItem onClick={handleLogoutButton}>Logout</MenuItem>
                     </MenuList>
                   </ClickAwayListener>
                 </Paper>
