@@ -167,8 +167,8 @@ export function Step4({
                 {error}
               </Typography>
             )}
-            <Button halfWidth fontSize="17px" disabled={loading}>
-              Next
+            <Button type="submit" halfWidth fontSize="17px" disabled={loading}>
+              Sign Me Up
             </Button>
             {signUpError && (
               <Typography align="left" className={classes.signUpErrorMessage}>

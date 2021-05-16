@@ -77,8 +77,9 @@ export function Step2({ setEmail, nextStep }: AppProps) {
           placeholder="example@gmail.com"
           autocomplete
           width="100%"
+          required
         />
-        <Button halfWidth fontSize="17px">
+        <Button type="submit" halfWidth fontSize="17px">
           Next
         </Button>
       </form>

@@ -1,15 +1,11 @@
-import { useEffect } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import axios from "axios";
-import Login from "./pages/Login";
-import MyProfile from "./pages/MyProfile";
-import Signup from "./pages/Signup";
+import { BrowserRouter } from "react-router-dom";
+
 import { CssBaseline } from "@material-ui/core";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import LogoutButton from "components/LogoutButton";
+import { makeStyles } from "@material-ui/core/styles";
 import Footer from "components/Footer";
-import AuthLayout from "components/AuthLayout";
+import { UserProvider } from "contexts/User";
+import Pages from "Pages";
 
 // const theme = {
 //   typography:{
@@ -56,27 +52,15 @@ function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <CssBaseline>
+        <CssBaseline />
+        <UserProvider>
           <div className={classes.root}>
             <div className={classes.content}>
-              <Switch>
-                <Route path="/login" exact>
-                  <Login />
-                </Route>
-                <Route path="/signup" exact>
-                  <Signup />
-                </Route>
-                <Route path="/" exact>
-                  <h1>index page</h1>
-                </Route>
-                <Route path="/profile" exact>
-                  <MyProfile />
-                </Route>
-              </Switch>
+              <Pages />
             </div>
             <Footer />
           </div>
-        </CssBaseline>
+        </UserProvider>
       </ThemeProvider>
     </BrowserRouter>
   );
