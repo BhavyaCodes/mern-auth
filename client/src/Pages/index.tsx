@@ -36,7 +36,7 @@ function Pages() {
       <Route path="/" exact>
         <>
           <Navbar />
-          {user ? <h1>index page</h1> : <Redirect to="/login" />}
+          {user ? <MyProfile /> : <Redirect to="/login" />}
         </>
       </Route>
       <Route path="/profile" exact>

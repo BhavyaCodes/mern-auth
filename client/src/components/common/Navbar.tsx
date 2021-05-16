@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect, MouseEvent, KeyboardEvent } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
 
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -23,7 +22,7 @@ import { useUser } from "contexts/User";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      flexGrow: 1,
+      flexGrow: 0,
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -47,7 +46,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function Navbar() {
-  const history = useHistory();
   const [open, setOpen] = useState<boolean>(false);
   const anchorRef = useRef<HTMLDivElement>(null);
 
@@ -98,7 +96,7 @@ export default function Navbar() {
   const [user, setUser] = useUser();
   return (
     <div className={classes.root}>
-      <AppBar position="absolute">
+      <AppBar position="fixed">
         <Toolbar>
           <Typography variant="h5" className={classes.title}>
             fakebook
