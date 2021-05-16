@@ -20,6 +20,7 @@ passport.deserializeUser((_id, done) => {
           firstName: user.firstName,
           lastName: user.lastName,
           dob: user.dob,
+          imageUrl: user.imageUrl,
         });
       }
     })

@@ -33,6 +33,10 @@ const userSchema: Schema = new Schema(
       type: Date,
       required: true,
     },
+    imageUrl: {
+      type: String,
+      default: null,
+    },
   },
   { timestamps: true }
 );

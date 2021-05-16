@@ -5,6 +5,7 @@ import { useUser } from "contexts/User";
 import { Login } from "./Login";
 import { MyProfile } from "./MyProfile";
 import { Signup } from "./Signup";
+import { EditProfile } from "./EditProfile";
 import Navbar from "components/common/Navbar";
 
 function Pages() {
@@ -39,8 +40,9 @@ function Pages() {
           {user ? <MyProfile /> : <Redirect to="/login" />}
         </>
       </Route>
-      <Route path="/profile" exact>
-        {user ? <MyProfile /> : <Redirect to="/login" />}
+      <Route path="/edit-profile" exact>
+        <Navbar />
+        {user ? <EditProfile /> : <Redirect to="/login" />}
       </Route>
     </Switch>
   );

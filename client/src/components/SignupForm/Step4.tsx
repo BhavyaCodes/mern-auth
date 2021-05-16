@@ -10,7 +10,7 @@ type AppProps = {
   setPassword: Dispatch<SetStateAction<string>>;
   loading: boolean;
   success: boolean;
-  onSubmit: () => void;
+  onSubmit: (password: string) => void;
   firstName: string;
   signUpError: string | null;
 };
@@ -100,6 +100,7 @@ export function Step4({
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const password = passwordRef.current!.value;
+    console.log(password);
     const reEnter = reEnterRef.current!.value;
     if (password !== reEnter) {
       return setError("Passwords don't match");
@@ -108,10 +109,12 @@ export function Step4({
     const errorList = schema.validate(password, {
       list: true,
     });
+
     if (errorList.length === 0) {
+      console.log("here");
       setError(null);
       setPassword(password);
-      onSubmit();
+      onSubmit(password);
     }
     const errorKey = errorList[0] as "min" | "uppercase";
     setError(errorMessages[errorKey]);

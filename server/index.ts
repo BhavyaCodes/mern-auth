@@ -6,6 +6,8 @@ import passport from "passport";
 import bcrypt from "bcrypt";
 import cookieSession from "cookie-session";
 import path from "path";
+import { isLoggedIn } from "./middleware/isLoggedIn";
+import { multerMiddleware, imageUpload } from "./middleware/imageUpload";
 
 import config from "./config";
 import User from "./models/User";
@@ -33,6 +35,7 @@ app.get("/api/test", (req, res, next) => {
 
 app.post("/api/register", async (req, res, next) => {
   const { email, password, firstName, lastName, dob } = req.body;
+  console.log(password);
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -68,19 +71,38 @@ app.post(
   }
 );
 
+app.post(
+  "/api/edit-profile",
+  isLoggedIn,
+  multerMiddleware,
+  imageUpload,
+  (req, res, next) => {
+    // res.status(200).send();
+    // console.log(req.user);
+    // console.log(req.body);
+    // console.log(req.user?.imageUrl);
+    User.findByIdAndUpdate(
+      req.user!._id,
+      {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        dob: req.body.dob,
+        imageUrl: req.user!.imageUrl || null,
+      },
+      { new: true }
+    )
+      .then((user) => res.status(200).send(user!.toObject()))
+      .catch((e) => {
+        console.log(e);
+        res.status(500).json({ e });
+      });
+  }
+);
+
 app.get("/api/login-error", (req, res, next) => {
   res.status(401).json({ error: "Invalid credentials" });
 });
-
-app.use(
-  (error: CustomError, req: Request, res: Response, next: NextFunction) => {
-    console.log(error);
-    const status = error.statusCode || 500;
-    const message = error.message;
-    const data = error.data;
-    res.status(status).json({ message, data });
-  }
-);
 
 app.get("/api/current-user", (req, res, next) => {
   if (!req.user) {
@@ -115,6 +137,16 @@ if (process.env.NODE_ENV === "production") {
     );
   });
 }
+
+app.use(
+  (error: CustomError, req: Request, res: Response, next: NextFunction) => {
+    console.log(error);
+    const status = error.statusCode || 500;
+    const message = error.message;
+    const data = error.data;
+    res.status(status).json({ message, data });
+  }
+);
 
 const { port, dbUrl } = config;
 

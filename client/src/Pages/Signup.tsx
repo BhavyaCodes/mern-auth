@@ -60,12 +60,12 @@ export const Signup = () => {
     })
   );
 
-  const handleSignup = async () => {
+  const handleSignup = async (pwd: string) => {
     setLoading(true);
     try {
       const res = await axios.post("/api/register", {
         email,
-        password,
+        password: pwd,
         firstName: fName,
         lastName: lName,
         dob: date,
