@@ -1,4 +1,4 @@
-import { useRef, FormEvent } from "react";
+import { useEffect, useRef, FormEvent } from "react";
 import axios from "axios";
 import AuthLayout from "components/AuthLayout";
 import Card from "components/Card";
@@ -7,7 +7,7 @@ import Input from "components/common/Input";
 import Button from "components/common/Button";
 import Line from "components/common/Line";
 import { Typography } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useUser } from "contexts/User";
 
 const Login = () => {
@@ -70,7 +70,6 @@ const Login = () => {
         password,
       })
       .then((res) => {
-        // console.log(res.data)
         setUser({
           firstName: res.data.firstName,
           lastName: res.data.lastName,
@@ -80,6 +79,10 @@ const Login = () => {
       })
       .catch((e) => console.log(e));
   };
+
+  if (user) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <AuthLayout>
