@@ -127,6 +127,7 @@ export function EditProfile() {
               placeholder=""
               type="text"
               topLabel="First Name"
+              onChange={setFirstName}
             />
             <Input
               id="edit-last-name"
@@ -134,6 +135,7 @@ export function EditProfile() {
               placeholder=""
               type="text"
               topLabel="Last Name"
+              onChange={setLastName}
             />
           </Grid>
           <Grid item md={6} xs={12} className={classes.gridRight}>
@@ -150,6 +152,7 @@ export function EditProfile() {
               placeholder=""
               type="text"
               topLabel="Email address"
+              onChange={setEmail}
             />
             <DatePicker
               selected={dob as Date}

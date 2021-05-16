@@ -1,4 +1,4 @@
-import { RefObject } from "react";
+import { RefObject, ChangeEvent, FormEvent, ChangeEventHandler } from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 type AppProps = {
@@ -13,6 +13,7 @@ type AppProps = {
   required?: boolean;
   inputRef?: RefObject<HTMLInputElement>; //change later to not optional
   value?: string | undefined;
+  onChange?: (arg0: string) => void;
 };
 
 function Input({
@@ -27,6 +28,7 @@ function Input({
   required,
   inputRef,
   value,
+  onChange,
 }: AppProps) {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -69,6 +71,12 @@ function Input({
     })
   );
   const classes = useStyles();
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (onChange) {
+      onChange(e.target.value);
+    }
+  };
   return (
     <div className={`${className || ""} ${classes.root}`}>
       {topLabel && (
@@ -85,6 +93,7 @@ function Input({
         autoComplete={autocomplete ? "on" : "off"}
         required={required && true}
         value={null || value}
+        onChange={handleChange}
       />
     </div>
   );
