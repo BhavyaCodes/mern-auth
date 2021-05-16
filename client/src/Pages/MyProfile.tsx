@@ -65,7 +65,7 @@ export function MyProfile() {
           <Grid item md={6} xs={12} className={classes.gridLeft}>
             <Avatar
               alt={`${user?.firstName} ${user?.lastName}`}
-              src="/static/images/avatar/1.jpg"
+              src={user?.imageUrl}
               className={classes.large}
             >
               {(user?.firstName[0]! + user?.lastName[0]!).toUpperCase()}
