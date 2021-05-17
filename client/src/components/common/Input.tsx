@@ -1,4 +1,4 @@
-import { RefObject, ChangeEvent, FormEvent, ChangeEventHandler } from "react";
+import { RefObject, ChangeEvent } from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 type AppProps = {
@@ -34,11 +34,6 @@ function Input({
 }: AppProps) {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-      // root: {
-      //   display: "flex",
-      //   justifyContent: "center",
-      //   alignItems: "center",
-      // },
       root: {
         textAlign: "left",
       },
