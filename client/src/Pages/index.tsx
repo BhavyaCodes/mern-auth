@@ -23,7 +23,7 @@ function Pages() {
   }, [setUser]);
 
   if (loading) {
-    return <h1>Loading</h1>;
+    return null;
   }
   console.log(user, loading);
   return (
