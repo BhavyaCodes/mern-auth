@@ -47,6 +47,8 @@ function Input({
         color: "inherit",
         width: width || theme.spacing(47),
         marginBottom: theme.spacing(gutterBottom || 0),
+        transitionDuration: "0.3s",
+        transitionProperty: "box-shadow border",
         "&::placeholder": {
           color: "#80838A",
         },
