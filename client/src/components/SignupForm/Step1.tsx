@@ -65,6 +65,7 @@ export function Step1({ setFName, setLName, nextStep }: AppProps) {
         <Grid container spacing={2} className={classes.grid}>
           <Grid item xs={6}>
             <Input
+              autoFocus
               type="text"
               placeholder=""
               width="100%"

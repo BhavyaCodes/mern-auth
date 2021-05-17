@@ -102,6 +102,7 @@ export const Login = () => {
         <Card>
           <form onSubmit={handleSubmit}>
             <Input
+              width="100%"
               inputRef={emailRef}
               placeholder="Email address"
               type="email"
@@ -109,6 +110,7 @@ export const Login = () => {
               id="login-email"
             />
             <Input
+              width="100%"
               inputRef={passwordRef}
               placeholder="Password"
               type="password"

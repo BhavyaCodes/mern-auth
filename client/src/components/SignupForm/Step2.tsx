@@ -69,6 +69,7 @@ export function Step2({ setEmail, nextStep }: AppProps) {
       </Typography>
       <form onSubmit={handleSubmit}>
         <Input
+          autoFocus
           className={classes.input}
           topLabel="Email address"
           inputRef={emailRef}

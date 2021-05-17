@@ -14,9 +14,11 @@ type AppProps = {
   inputRef?: RefObject<HTMLInputElement>; //change later to not optional
   value?: string | undefined;
   onChange?: (arg0: string) => void;
+  autoFocus?: boolean;
 };
 
 function Input({
+  autoFocus,
   id,
   type,
   placeholder,
@@ -85,6 +87,7 @@ function Input({
         </label>
       )}
       <input
+        autoFocus={autoFocus}
         ref={inputRef}
         id={id}
         type={type}

@@ -41,7 +41,7 @@ function Signup({ children }: { children: ReactNode }) {
     <div className={classes.root}>
       <Container className={classes.container} maxWidth="lg">
         <Grid container>
-          <Grid item lg={6} md={12} className={classes.leftSide}>
+          <Grid item lg={6} md={6} xs={12} className={classes.leftSide}>
             <Typography variant="h1" className={classes.title}>
               fakebook
             </Typography>
@@ -50,7 +50,7 @@ function Signup({ children }: { children: ReactNode }) {
               ads.
             </Typography>
           </Grid>
-          <Grid item lg={6} md={12}>
+          <Grid item lg={6} md={6} xs={12}>
             {children}
           </Grid>
         </Grid>

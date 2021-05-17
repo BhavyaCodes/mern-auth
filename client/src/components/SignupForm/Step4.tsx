@@ -146,6 +146,7 @@ export function Step4({
           </Typography>
           <form onSubmit={handleSubmit}>
             <Input
+              autoFocus
               className={classes.input}
               topLabel="Enter Password"
               inputRef={passwordRef}
