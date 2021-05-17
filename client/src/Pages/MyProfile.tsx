@@ -84,7 +84,7 @@ export function MyProfile() {
               {"Birthday " +
                 new Date(user!.dob).getDate() +
                 "/" +
-                new Date(user!.dob).getMonth()}
+                (new Date(user!.dob).getMonth() + 1)}
             </Typography>
           </Grid>
         </Grid>

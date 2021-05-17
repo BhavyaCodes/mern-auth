@@ -4,6 +4,7 @@ import { useUser } from "contexts/User";
 import Input from "components/common/Input";
 import Button from "components/common/Button";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
 import {
   Container,
   Toolbar,
@@ -47,10 +48,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     iconText: {
       fontSize: theme.spacing(3),
-      // alignItems: "center",
-      // "&:not(:last-child)": {
-      //   marginBottom: theme.spacing(4),
-      // },
     },
     icon: {
       marginRight: theme.spacing(1),
@@ -71,12 +68,13 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export function EditProfile() {
+  const history = useHistory();
   // const [fileInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] =
     useState<string | ArrayBuffer | null>(null);
   // const [selectedFile, setSelectedFile] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
-  const [user] = useUser();
+  const [user, setUser] = useUser();
   const [firstName, setFirstName] = useState<string>(user!.firstName);
   const [lastName, setLastName] = useState<string>(user!.lastName);
   const [email, setEmail] = useState<string>(user!.email);
@@ -107,15 +105,26 @@ export function EditProfile() {
       fd.append("email", email);
       fd.append("dob", dob?.toString()!);
 
-      await axios.post("/api/edit-profile", fd, {
-        onUploadProgress: (progressEvent) => {
-          console.log(
-            `Upload Progress ${Math.round(
-              (progressEvent.loaded / progressEvent.total) * 100
-            )}%`
-          );
-        },
-      });
+      await axios
+        .post("/api/edit-profile", fd, {
+          onUploadProgress: (progressEvent) => {
+            console.log(
+              `Upload Progress ${Math.round(
+                (progressEvent.loaded / progressEvent.total) * 100
+              )}%`
+            );
+          },
+        })
+        .then((res) => {
+          setUser({
+            firstName: res.data.firstName,
+            lastName: res.data.lastName,
+            dob: res.data.dob,
+            email: res.data.email,
+            imageUrl: res.data.imageUrl,
+          });
+          history.push("/");
+        });
     } catch (error) {
       console.log(error);
     }
@@ -133,11 +142,14 @@ export function EditProfile() {
     <div className={classes.root}>
       <Toolbar />
       <Container>
+        <Typography variant="h3" gutterBottom>
+          Edit mode
+        </Typography>
         <Grid container>
           <Grid item md={6} xs={12} className={classes.gridLeft}>
             <Avatar
               alt={`${user?.firstName} ${user?.lastName}`}
-              src={(previewSource as string) || ""}
+              src={(previewSource as string) || user?.imageUrl || ""}
               className={classes.large}
             >
               {(user?.firstName[0]! + user?.lastName[0]!).toUpperCase()}

@@ -110,7 +110,7 @@ export default function Navbar() {
             aria-haspopup="true"
             onClick={handleToggle}
           >
-            <Avatar className={classes.avatar}>
+            <Avatar className={classes.avatar} src={user?.imageUrl}>
               {user &&
                 user.firstName[0].toUpperCase() +
                   user.lastName[0].toUpperCase()}
