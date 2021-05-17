@@ -13,6 +13,7 @@ import { useUser } from "contexts/User";
 export const Login = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const [error, setError] = useState<null | string>(null);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [user, setUser] = useUser();
 
@@ -58,6 +59,9 @@ export const Login = () => {
           textDecoration: "underline",
         },
       },
+      error: {
+        color: theme.palette.error.dark,
+      },
     })
   );
   const classes = useStyles();
@@ -74,6 +78,7 @@ export const Login = () => {
       .then(() => setSubmitted(true))
       .catch((e) => {
         console.log(e);
+        setError(e.response.data.error);
         setSubmitted(true);
       });
   };
@@ -117,6 +122,9 @@ export const Login = () => {
               gutterBottom={2}
               id="login-password"
             />
+            {error && (
+              <Typography className={classes.error}>{error}</Typography>
+            )}
             <Button type="submit" fullWidth color="primary" fontSize="20px">
               Log in
             </Button>
