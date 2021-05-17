@@ -1,5 +1,6 @@
-import { Typography, Container } from "@material-ui/core";
+import { Typography, Container, IconButton } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import GitHubIcon from "@material-ui/icons/GitHub";
 
 function Footer() {
   const useStyles = makeStyles((theme: Theme) =>
@@ -11,6 +12,17 @@ function Footer() {
         paddingTop: theme.spacing(3),
         paddingBottom: theme.spacing(3),
       },
+      right: {
+        display: "flex",
+      },
+      link: {
+        color: "inherit",
+        textDecoration: "none",
+        marginLeft: theme.spacing(2),
+        "&:hover": {
+          textDecoration: "underline",
+        },
+      },
     })
   );
   const classes = useStyles();
@@ -18,7 +30,24 @@ function Footer() {
     <footer className={classes.root}>
       <Container className={classes.container}>
         <Typography>&copy; 2021 GitHub, Inc.</Typography>
-        <Typography>right</Typography>
+        <div className={classes.right}>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          <a className={classes.link} href="#" target="_blank" rel="noreferrer">
+            <Typography>Terms</Typography>
+          </a>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          <a className={classes.link} href="#" target="_blank" rel="noreferrer">
+            <Typography>Privacy policy</Typography>
+          </a>
+          <a
+            className={classes.link}
+            href="https://github.com/BhavyaCodes/mern-auth"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <GitHubIcon />
+          </a>
+        </div>
       </Container>
     </footer>
   );
