@@ -7,7 +7,7 @@ import Input from "components/common/Input";
 import Button from "components/common/Button";
 import Line from "components/common/Line";
 import { Typography } from "@material-ui/core";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { useUser } from "contexts/User";
 
 export const Login = () => {
@@ -16,6 +16,7 @@ export const Login = () => {
   const [error, setError] = useState<null | string>(null);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [user, setUser] = useUser();
+  const history = useHistory();
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -89,13 +90,14 @@ export const Login = () => {
         .get("/api/current-user")
         .then((res) => {
           setUser(res.data);
+          history.push("/");
         })
         .catch((e) => {
           console.log(e);
           setUser(null);
         });
     }
-  }, [setUser, submitted]);
+  }, [setUser, submitted, history]);
 
   if (user) {
     return <Redirect to="/" />;

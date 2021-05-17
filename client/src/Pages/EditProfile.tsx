@@ -164,6 +164,7 @@ export function EditProfile() {
               className={classes.imageInput}
             />
             <Input
+              width="100%"
               id="edit-first-name"
               value={firstName}
               placeholder=""
@@ -172,6 +173,7 @@ export function EditProfile() {
               onChange={setFirstName}
             />
             <Input
+              width="100%"
               id="edit-last-name"
               value={lastName}
               placeholder=""
@@ -189,6 +191,7 @@ export function EditProfile() {
                 new Date(user!.dob).getMonth()}
             </Typography> */}
             <Input
+              width="100%"
               id="edit-last-name"
               value={email}
               placeholder=""
