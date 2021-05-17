@@ -29,7 +29,7 @@ function Footer() {
   return (
     <footer className={classes.root}>
       <Container className={classes.container}>
-        <Typography>&copy; 2021 GitHub, Inc.</Typography>
+        <Typography>&copy; 2021 Fakebook, Inc.</Typography>
         <div className={classes.right}>
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a className={classes.link} href="#" target="_blank" rel="noreferrer">
