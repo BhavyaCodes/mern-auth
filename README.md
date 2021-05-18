@@ -14,6 +14,7 @@
 - one script to build server(express) and client(CRA)
 - http-proxy-middleware for dev environment to avoid any CORS error when running CRA on separate server. Note that the middleware only runs on `dev` mode and not in production
 - Separate `tsconfig.json` for client and server
+- automatic deployments to heroku from github
 
 ## Running the project locally
 
@@ -27,7 +28,7 @@
   `cd client`
   `npm install`
   `cd ..`
-- add environment variables, refer (.env.example)[./.env.example]
+- add environment variables, refer [.env.example](./.env.example)
 - start the dev server
   `npm run dev`
 - visit `http://localhost:3000`
