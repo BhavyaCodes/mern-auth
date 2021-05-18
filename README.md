@@ -19,18 +19,26 @@
 ## Running the project locally
 
 - clone the repo
-  `git clone <url>`
-  `cd mern-auth`
+  ```bash
+  git clone <url>
+  cd mern-auth
+  ```
 - install dependencies for server when in the root of the project
-  `npm install`
+  ```bash
+  npm install
+  ```
 - install dependencies for client
   from root of the project do
-  `cd client`
-  `npm install`
-  `cd ..`
+  ```bash
+  cd client
+  npm install
+  cd ..
+  ```
 - add environment variables, refer [.env.example](./.env.example)
 - start the dev server
-  `npm run dev`
+  ```bash
+  npm run dev
+  ```
 - visit `http://localhost:3000`
 
 ### Made using
